@@ -1,0 +1,35 @@
+BOUCHACHI MOHAMED MEHDI — PORTFOLIO WEBSITE
+===========================================
+
+YOUR FASTEST WAY TO PUBLISH:
+
+1. Open the folder named 'deploy-ready'.
+2. Upload EVERYTHING INSIDE that folder to your Hostinger website's public_html folder.
+3. Visit your domain. No installation, backend, or build step needed.
+
+TO DEVELOP WITH NEXT.JS:
+
+1. Open this folder in VS Code.
+2. Run 'npm install' (requires an Internet connection).
+3. Run 'npm run dev' and visit http://localhost:3000.
+4. Run 'npm run build' to generate the 'out' static export.
+
+TO CHANGE CONTENT:
+
+- Next.js content: data/site.ts
+- Static edition content: data/site.json, then run 'node build-static.mjs'
+- Photos: public/media/photos/
+- Certificates: public/media/certificates/
+- Brand logo: public/brand/
+- CV download: public/resume/
+
+PROJECTS INCLUDED:
+EmpreinteFlex, ITC Blida, ITCP, AeroLab, Healance and The Wild Oasis.
+
+IMPORTANT:
+- Project visuals are custom illustrations, not actual screenshots.
+- The Wild Oasis description is intentionally conservative pending your real project details.
+- Static site functionality was tested in a browser.
+- Next.js dependency installation/build could not be run in the offline sandbox.
+
+Open README.md for full instructions.
