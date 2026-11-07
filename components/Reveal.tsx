@@ -79,22 +79,18 @@ export default function Reveal(){
      }
      const certificateArt=document.querySelector('.certificate-artwork');
      if(certificateArt){
-       const certificateLines=gsap.utils.toArray<SVGPathElement>('.certificate-art-rule,.certificate-art-signature',certificateArt);
-       certificateLines.forEach(path=>{const length=path.getTotalLength();gsap.set(path,{strokeDasharray:length,strokeDashoffset:length})});
-       const certificateLoop=gsap.timeline({paused:true,repeat:-1,repeatDelay:1.2})
-         .to('.certificate-art-shadow',{x:5,y:3,duration:1.2,ease:'sine.inOut'},0)
-         .to('.certificate-art-back',{x:3,y:2,duration:1.2,ease:'sine.inOut'},.12)
-         .to('.certificate-art-seal',{rotation:4,transformOrigin:'center center',duration:1.1,ease:'sine.inOut'},.15)
-         .fromTo('.certificate-art-spark',{opacity:.25},{opacity:1,duration:.6,yoyo:true,repeat:1,ease:'sine.inOut'},.65)
-         .to('.certificate-art-index-dot',{opacity:.3,duration:.35,stagger:.16,yoyo:true,repeat:1},.75)
-         .to('.certificate-art-shadow,.certificate-art-back',{x:0,y:0,duration:1.1,ease:'sine.inOut'},1.9)
-         .to('.certificate-art-seal',{rotation:0,duration:1.1,ease:'sine.inOut'},1.9);
-       gsap.timeline({scrollTrigger:{trigger:certificateArt,start:'top 88%',once:true},onComplete:()=>{const bounds=certificateArt.getBoundingClientRect();if(bounds.top<window.innerHeight&&bounds.bottom>0) certificateLoop.play()}})
-         .fromTo('.certificate-art-shadow,.certificate-art-back,.certificate-art-paper',{y:18,opacity:0},{y:0,opacity:1,duration:.65,stagger:.12,ease:'power3.out'},0)
-         .to(certificateLines,{strokeDashoffset:0,duration:.8,stagger:.12,ease:'power2.out'},.55)
-         .fromTo('.certificate-art-seal',{scale:1.4,rotation:-12,opacity:0,transformOrigin:'center center'},{scale:1,rotation:0,opacity:1,duration:.65,ease:'back.out(2)'},1.15)
-         .fromTo('.certificate-art-index-dot',{scale:.2,opacity:0,transformOrigin:'center center'},{scale:1,opacity:1,duration:.28,stagger:.13,ease:'back.out(2)'},1.5);
-       ScrollTrigger.create({trigger:certificateArt,start:'top bottom',end:'bottom top',onEnterBack:()=>certificateLoop.play(),onLeave:()=>certificateLoop.pause(),onLeaveBack:()=>certificateLoop.pause()});
+       const select=(selector:string)=>gsap.utils.toArray<Element>(selector,certificateArt);
+       const paper=select('.certificate-art-paper,.certificate-art-corner,.certificate-art-heading,.certificate-art-rule,.certificate-art-signature,.certificate-art-seal,.certificate-art-spark');
+       const certificateLoop=gsap.timeline({paused:true,repeat:-1,repeatDelay:.5})
+         .to('.certificate-art-base',{x:7,y:4,duration:1.4,ease:'sine.inOut'},0)
+         .to('.certificate-art-back',{x:4,y:2,duration:1.4,ease:'sine.inOut'},0)
+         .to(paper,{y:-2,duration:1.4,ease:'sine.inOut'},0)
+         .to('.certificate-art-seal',{rotation:5,transformOrigin:'center center',duration:1.4,ease:'sine.inOut'},0)
+         .to('.certificate-art-index-dot',{opacity:.4,duration:.45,stagger:.22,yoyo:true,repeat:1,ease:'sine.inOut'},.85)
+         .to('.certificate-art-base,.certificate-art-back',{x:0,y:0,duration:1.4,ease:'sine.inOut'},2)
+         .to(paper,{y:0,duration:1.4,ease:'sine.inOut'},2)
+         .to('.certificate-art-seal',{rotation:0,duration:1.4,ease:'sine.inOut'},2);
+       ScrollTrigger.create({trigger:certificateArt,start:'top 92%',end:'bottom top',onEnter:()=>certificateLoop.play(),onEnterBack:()=>certificateLoop.play(),onLeave:()=>certificateLoop.pause(),onLeaveBack:()=>certificateLoop.pause()});
      }
      const contactArt=document.querySelector('.contact-artwork');
      if(contactArt){
