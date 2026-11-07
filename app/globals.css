@@ -223,7 +223,7 @@
 @media(max-width:760px){.site-header.scrolled .brand,.site-header.scrolled .brand img{width:168px}.main-nav>a[aria-current='location']{background:var(--surface);border-left:2px solid var(--blue);padding-left:13px}}
 @media(max-width:520px){.site-header.scrolled .brand,.site-header.scrolled .brand img{width:155px}}
 /* Shared type scale */
-:root{--type-hero:clamp(3.1rem,5.15vw,5.75rem);--type-section:clamp(2.6rem,4.15vw,4.6rem);--type-contact:clamp(3rem,5.1vw,5.4rem);--type-case:clamp(2.65rem,6.2vw,7rem)}
+:root{--type-hero:var(--font-display);--type-section:var(--font-section);--type-contact:var(--font-section);--type-case:var(--font-page)}
 .section-pad{padding:108px 0}
 .section-heading-row{margin:40px 0 39px}
 .section-title,.about-title{font-size:var(--type-section);line-height:1.1;letter-spacing:-.058em}
@@ -395,19 +395,19 @@
 :root{
  --page-gutter:clamp(17px,3.5vw,52px);
  --space-section:clamp(68px,7vw,112px);
- --font-display:clamp(3rem,calc(2rem + 2.9vw),5.6rem);
- --font-page:clamp(2.7rem,calc(2rem + 3.2vw),6rem);
- --font-section:clamp(2.15rem,calc(1.45rem + 1.55vw),3.55rem);
- --font-feature:clamp(1.8rem,calc(1.45rem + .95vw),2.6rem);
- --font-card:clamp(1.35rem,calc(1.12rem + .55vw),1.65rem);
- --font-subsection:clamp(1.28rem,calc(.95rem + 1vw),1.75rem);
- --font-small-heading:clamp(1.08rem,1.2vw,1.35rem);
- --font-body:clamp(1rem,calc(.84rem + .27vw),1.125rem);
- --font-lead:clamp(1.17rem,calc(1rem + .7vw),1.55rem);
- --font-intro:clamp(.94rem,calc(.91rem + .11vw),1rem);
- --font-small:clamp(.85rem,calc(.8rem + .15vw),.96rem);
- --font-caption:clamp(.68rem,calc(.62rem + .12vw),.78rem);
- --font-button:clamp(.86rem,calc(.82rem + .18vw),.98rem);
+ --font-display:clamp(2.35rem,calc(1.75rem + 2.5vw),5rem);
+ --font-page:clamp(2.25rem,calc(1.6rem + 2.7vw),5.25rem);
+ --font-section:clamp(2rem,calc(1.48rem + 1.65vw),3.35rem);
+ --font-feature:clamp(1.65rem,calc(1.38rem + .9vw),2.35rem);
+ --font-card:clamp(1.22rem,calc(1.07rem + .48vw),1.55rem);
+ --font-subsection:clamp(1.15rem,calc(1rem + .55vw),1.55rem);
+ --font-small-heading:clamp(1rem,calc(.88rem + .3vw),1.2rem);
+ --font-body:clamp(.9rem,calc(.84rem + .16vw),1rem);
+ --font-lead:clamp(1.04rem,calc(.91rem + .43vw),1.3rem);
+ --font-intro:clamp(.9rem,calc(.85rem + .14vw),1rem);
+ --font-small:clamp(.8rem,calc(.76rem + .12vw),.92rem);
+ --font-caption:clamp(.64rem,calc(.6rem + .1vw),.76rem);
+ --font-button:clamp(.82rem,calc(.78rem + .12vw),.94rem);
 }
 .wrap{width:min(1370px,calc(100% - var(--page-gutter) - var(--page-gutter)))}
 .section-pad{padding-block:var(--space-section)}
@@ -427,30 +427,30 @@
 .ui-text.ui-text--small{font-size:var(--font-small);line-height:1.5}
 .ui-text.ui-text--caption{font-size:var(--font-caption);line-height:1.5}
 .ui-text.ui-text--overline{font-size:var(--font-caption);font-weight:700;letter-spacing:.14em;line-height:1.5}
-.hero-preface.ui-text{font-size:clamp(1.45rem,2.25vw,2.3rem);line-height:1.25}
+.hero-preface.ui-text{font-size:clamp(1.4rem,calc(1.05rem + 1.1vw),2.05rem);line-height:1.25}
 .hero-heading .hero-heading-main,.hero-heading .hero-heading-accent{font-size:var(--font-display)}
-.architecture-mobile-focus-body .ui-heading--card{font-size:clamp(2.4rem,10vw,3.25rem)}
-.architecture-mobile-focus-body .ui-text--lead{font-size:clamp(1.3rem,5.5vw,1.56rem)}
-.case-overview .ui-text--lead{font-size:clamp(1.4rem,2.1vw,1.9rem);line-height:1.42}
+.architecture-mobile-focus-body .ui-heading--card{font-size:var(--font-feature)}
+.architecture-mobile-focus-body .ui-text--lead{font-size:var(--font-lead)}
+.case-overview .ui-text--lead{font-size:var(--font-lead);line-height:1.5}
 .architecture-section{padding-top:clamp(58px,6vw,82px)}
 .architecture-intro{padding-top:0;padding-bottom:clamp(28px,3vw,38px)}
 .architecture-intro>.architecture-summary{max-width:390px}
 .project-details .ui-heading--card{line-height:1.2;letter-spacing:-.045em}
-.project-details .ui-text{font-size:clamp(.9rem,calc(.85rem + .12vw),.98rem);line-height:1.55;margin-top:5px}
+.project-details .ui-text{font-size:var(--font-intro);line-height:1.55;margin-top:5px}
 .project-meta{margin-bottom:12px}
 .skill-card{min-height:clamp(240px,20vw,280px)}
 .skill-card .ui-heading--card{margin-top:clamp(32px,3vw,45px);margin-bottom:18px}
-.infra-note .ui-text{font-size:clamp(.95rem,calc(.89rem + .12vw),1.02rem);line-height:1.6}
+.infra-note .ui-text{font-size:var(--font-body);line-height:1.6}
 @media(max-width:520px){.skill-card{min-height:0}}
 .recognition-top{align-items:center;gap:clamp(24px,5vw,72px);margin:clamp(30px,3vw,44px) 0 clamp(30px,3vw,42px)}
 .award-number>span{font-size:clamp(5.5rem,8vw,9rem);line-height:.83}
 .award-suffix{font-size:.27em;top:.16em}
 .award-number .ui-text{font-size:var(--font-caption);line-height:1.5;margin-top:clamp(14px,1.5vw,20px)}
-.featured-award-copy .ui-text{font-size:clamp(.95rem,calc(.89rem + .12vw),1.02rem);line-height:1.6}
+.featured-award-copy .ui-text{font-size:var(--font-body);line-height:1.6}
 @media(max-width:760px){.recognition-top{align-items:flex-start}.award-number>span{font-size:clamp(5rem,15vw,7.5rem)}}
 @media(max-width:520px){.recognition-top{display:block}.award-number{margin-top:24px}.award-number>span{font-size:clamp(4.4rem,20vw,6.4rem)}.award-number .ui-text{font-size:.68rem}}
-.about-copy .about-lead{font-size:clamp(1.12rem,calc(1.01rem + .35vw),1.32rem);line-height:1.48;max-width:56ch;margin-top:clamp(24px,2.2vw,34px)}
-.about-copy .about-body{font-size:clamp(.98rem,calc(.92rem + .15vw),1.08rem);line-height:1.7;max-width:65ch;margin-top:clamp(16px,1.4vw,22px)}
+.about-copy .about-lead{font-size:var(--font-lead);line-height:1.5;max-width:56ch;margin-top:clamp(24px,2.2vw,34px)}
+.about-copy .about-body{font-size:var(--font-body);line-height:1.7;max-width:65ch;margin-top:clamp(16px,1.4vw,22px)}
 .about-copy .about-signature{margin-top:clamp(28px,2.7vw,40px)}
 .ui-button{display:inline-flex;align-items:center;justify-content:center;gap:clamp(10px,1vw,18px);min-height:clamp(44px,3.5vw,52px);padding:clamp(11px,1vw,15px) clamp(15px,1.4vw,21px);border:1px solid transparent;border-radius:0;font-size:var(--font-button);font-weight:700;line-height:1.25;white-space:normal;text-align:center;transition:background .25s,color .25s,border-color .25s,transform .25s}
 .ui-button svg{flex:none}
@@ -635,4 +635,107 @@
  .gallery-grid .gallery-item{grid-column:auto;grid-row:auto;aspect-ratio:16/10;min-height:0}
  .gallery-grid .gallery-item img{object-position:center}
  .gallery-overlay{padding:14px;background:linear-gradient(transparent 58%,rgba(0,0,0,.78))}
+}
+
+/* Contact: keep the invitation, system artwork, and ways to reach out in one rhythm. */
+.contact-section{padding-block:clamp(70px,7vw,100px) clamp(55px,5vw,75px)}
+.contact-main{align-items:center;margin-top:clamp(34px,4vw,55px);gap:clamp(36px,5vw,88px)}
+.contact-prelude{margin-bottom:14px}
+.contact-headline{font-size:clamp(3.1rem,5vw,5.25rem)}
+.contact-panel{padding-block:5px}
+.contact-panel p{margin:17px 0 22px}
+.contact-artwork{height:clamp(105px,10vw,145px);margin-top:clamp(30px,3vw,46px);overflow:hidden}
+.contact-artwork svg{overflow:visible}
+.contact-bottom{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;column-gap:clamp(24px,4vw,70px);margin-top:30px;padding-top:22px}
+.contact-bottom>a{min-width:0}
+.contact-bottom>a:first-child{overflow-wrap:anywhere}
+.contact-bottom>div{white-space:nowrap}
+.contact-github{justify-self:end}
+@media(max-width:950px){
+ .contact-bottom{grid-template-columns:minmax(0,1fr) auto;row-gap:16px}
+ .contact-bottom>div{grid-column:1/-1;grid-row:2}
+}
+@media(max-width:600px){
+ .contact-section{padding-block:48px 48px}
+ .contact-main{margin-top:29px;gap:26px}
+ .contact-prelude{margin-bottom:9px;font-size:var(--font-small)}
+ .contact-headline{font-size:clamp(2.5rem,10.5vw,3.2rem);line-height:1.04}
+ .contact-panel{padding:21px 0 0}
+ .contact-panel p{max-width:34ch;margin:13px 0 18px;font-size:var(--font-body);line-height:1.55}
+ .contact-action{min-height:46px;padding:11px 15px}
+ .contact-artwork{position:relative;height:115px;margin-top:27px}
+ .contact-artwork svg{position:absolute;left:50%;top:50%;width:700px;max-width:none;height:111px;transform:translate(-50%,-50%)}
+ .contact-bottom{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:15px 12px;margin-top:19px;padding-top:19px}
+ .contact-bottom>a:first-child{grid-column:1/-1;font-size:var(--font-small);gap:9px}
+ .contact-bottom>div{grid-column:1;grid-row:2;display:flex;flex-wrap:wrap;gap:6px 9px;white-space:normal;line-height:1.4}
+ .contact-bottom-divider{width:12px}
+ .contact-github{grid-column:2;grid-row:2;font-size:var(--font-caption)!important}
+}
+
+/* One responsive type scale for the remaining legacy section styles. */
+.contact-headline{font-size:var(--font-section)}
+.case-overview p,.section-intro,.work-section .section-intro{font-size:var(--font-body);line-height:1.6}
+.case-overview .ui-text--lead{font-size:var(--font-lead);line-height:1.55}
+.section-intro.ui-text--intro,.work-section .section-intro.ui-text--intro{font-size:var(--font-intro);line-height:1.6}
+.project-details h3,.skill-card h3{font-size:var(--font-card)}
+.featured-award-copy h3{font-size:var(--font-feature)}
+.project-details p,.case-block p,.infra-note p,.featured-award-copy p{font-size:var(--font-body);line-height:1.6}
+@media(min-width:761px) and (max-width:1100px){
+ .hero{min-height:0;padding-top:clamp(112px,13vw,145px);padding-bottom:clamp(56px,6vw,78px)}
+ .hero-layout{gap:clamp(25px,4vw,45px)}
+}
+@media(max-width:600px){
+ .contact-headline{font-size:var(--font-section)}
+ .project-details h3,.skill-card h3{font-size:var(--font-card)}
+ .featured-award-copy h3{font-size:var(--font-feature)}
+ .project-details p,.case-block p,.infra-note p,.featured-award-copy p{font-size:var(--font-body)}
+}
+
+/* Case study rhythm: compact and readable from narrow phones through tablets. */
+@media(max-width:760px){
+ .case-page{padding-top:72px}
+ .case-hero{padding-top:20px}
+ .case-heading-row{margin:28px 0 26px}
+ .case-title{font-size:clamp(2.35rem,7vw,3.5rem);line-height:1.02}
+ .case-lead{max-width:36rem;font-size:clamp(1rem,2.5vw,1.2rem);line-height:1.45;margin-top:9px}
+ .case-body{padding:44px 0 60px}
+ .case-overview{padding-bottom:26px;margin-bottom:27px}
+ .case-overview .ui-text--lead{margin-top:11px;font-size:clamp(1rem,2.35vw,1.2rem);line-height:1.55;letter-spacing:-.015em}
+ .case-columns{gap:28px}
+ .case-sidebar>div{padding:15px 0}
+ .case-sidebar .case-external{margin-top:3px}
+ .case-block{padding:21px 0}
+ .case-block h3{font-size:var(--font-subsection)}
+ .case-block p{margin-top:6px;line-height:1.6}
+ .case-responsibilities{margin-top:31px}
+ .case-responsibilities p{padding:14px 0;gap:16px;line-height:1.5}
+ .case-responsibilities p:first-of-type{margin-top:10px}
+ .case-next{padding:48px 0}
+ .case-next-inner h2{font-size:clamp(2rem,5vw,3rem)}
+ .case-footer{gap:16px;flex-wrap:wrap;padding-block:24px}
+}
+@media(max-width:520px){
+ .case-hero{padding-top:16px}
+ .case-back{font-size:var(--font-caption)}
+ .case-heading-row{margin:23px 0 22px}
+ .case-kicker{max-width:100%;font-size:var(--font-caption);line-height:1.5;letter-spacing:.08em}
+ .case-title{font-size:clamp(2.1rem,9vw,2.65rem);letter-spacing:-.055em}
+ .case-lead{font-size:clamp(.98rem,4.1vw,1.08rem)}
+ .case-body{padding:34px 0 48px}
+ .case-overview{padding-bottom:22px;margin-bottom:22px}
+ .case-overview .ui-text--lead{font-size:clamp(.98rem,4.2vw,1.08rem)}
+ .case-columns{gap:22px}
+ .case-sidebar{column-gap:14px}
+ .case-sidebar>div{padding:12px 0}
+ .case-sidebar strong{font-size:var(--font-body);line-height:1.4}
+ .case-tags{gap:5px}
+ .case-block{grid-template-columns:27px minmax(0,1fr);gap:10px;padding:17px 0}
+ .case-block h3{font-size:clamp(1.05rem,4.7vw,1.2rem)}
+ .case-block p{font-size:var(--font-body);line-height:1.55}
+ .case-responsibilities{margin-top:25px}
+ .case-responsibilities p{padding:12px 0;font-size:var(--font-body)}
+ .case-next{padding:35px 0}
+ .case-next-inner h2{font-size:clamp(1.9rem,8vw,2.3rem)}
+ .case-next-inner h2 svg{width:25px;height:25px}
+ .case-footer{font-size:var(--font-caption);line-height:1.5}
 }
