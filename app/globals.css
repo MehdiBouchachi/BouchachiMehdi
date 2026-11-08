@@ -864,3 +864,65 @@
  .nf-route-trail,.nf-ping,.nf-packet,.nf-packet-tail,.nf-packet-ghost,.nf-sweep{display:none}
  .not-found-actions a{transition:none}
 }
+/* Engineering system: one signal drives everything — trail, comet, card and core responses, plus a scroll-in entrance */
+.arch-stop-a{stop-color:var(--blue)}
+.architecture-progress-line{stroke:var(--blue);stroke-width:2;opacity:.35}
+.architecture-signal{stroke:var(--blue)}
+.architecture-signal-glow{stroke-width:9;opacity:.12}
+.architecture-signal-body{stroke-width:3}
+.architecture-signal-head{stroke:var(--cyan);stroke-width:4}
+.architecture-core-mark{filter:drop-shadow(0 0 6px color-mix(in srgb,var(--blue) 40%,transparent));transition:filter .6s ease}
+.architecture-core-mark path{stroke-dasharray:1;stroke-dashoffset:0}
+.arch-core-ping{fill:none;stroke:var(--blue);stroke-width:1.5;opacity:0;transform-box:fill-box;transform-origin:center;pointer-events:none}
+.architecture-section[data-active="3"] .arch-core-ping{animation:arch-ping-core 1.4s cubic-bezier(.2,.8,.2,1)}
+.architecture-section[data-active="3"] .architecture-core-mark{filter:drop-shadow(0 0 12px color-mix(in srgb,var(--blue) 70%,transparent))}
+.architecture-card-ping{opacity:0;transform-box:fill-box;transform-origin:center;pointer-events:none}
+.architecture-card-ping rect{fill:none;stroke:var(--blue);stroke-width:1.2}
+.architecture-section[data-active="1"] .architecture-requirements-card .architecture-card-ping,.architecture-section[data-active="2"] .architecture-blueprint-card .architecture-card-ping,.architecture-section[data-active="4"] .architecture-quality-card .architecture-card-ping,.architecture-section[data-active="5"] .architecture-production-card .architecture-card-ping{animation:arch-ping 1.1s cubic-bezier(.2,.8,.2,1)}
+/* entrance */
+.architecture-section[data-reveal] .architecture-route{stroke-dasharray:2000;transition:stroke-dashoffset 1.8s cubic-bezier(.6,0,.2,1) .3s}
+.architecture-section[data-reveal] .architecture-joints,.architecture-section[data-reveal] .architecture-labels,.architecture-section[data-reveal] .architecture-traveler{transition:opacity .8s ease 1.4s}
+.architecture-section[data-reveal] .architecture-card{transition:opacity .8s cubic-bezier(.2,.8,.2,1) calc(.5s + var(--i) * .12s),transform .8s cubic-bezier(.2,.8,.2,1) calc(.5s + var(--i) * .12s)}
+.architecture-section[data-reveal] .arch-core{transform-origin:600px 214px;transition:opacity .8s ease,transform 1.1s cubic-bezier(.16,1,.3,1)}
+.architecture-section[data-reveal] .architecture-core-mark path{transition:stroke-dashoffset .8s cubic-bezier(.6,0,.2,1) .6s}
+.architecture-section[data-reveal] .architecture-core-mark path:nth-child(2){transition-delay:.7s}
+.architecture-section[data-reveal] .architecture-core-mark path:nth-child(3){transition-delay:.8s}
+.architecture-section[data-reveal="armed"] .architecture-route{stroke-dashoffset:2000}
+.architecture-section[data-reveal="armed"] .architecture-core-mark path{stroke-dashoffset:1}
+.architecture-section[data-reveal="armed"] .architecture-joints,.architecture-section[data-reveal="armed"] .architecture-labels,.architecture-section[data-reveal="armed"] .architecture-traveler{opacity:0}
+.architecture-section[data-reveal="armed"] .architecture-card{opacity:0;transform:translateY(14px)}
+.architecture-section[data-reveal="armed"] .arch-core{opacity:0;transform:scale(.85)}
+@keyframes arch-ping{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(1.08,1.16)}}
+@keyframes arch-ping-core{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(1.55)}}
+@media(prefers-reduced-motion:reduce){
+ .architecture-signal,.architecture-progress{display:none}
+ .arch-core-ping,.architecture-card-ping{animation:none}
+}
+/* signal spotlight: the grid lights up where the signal is */
+.arch-grid-lit-line{stroke:var(--blue);stroke-opacity:.4}
+.arch-grid-lit-dot{fill:var(--blue);opacity:.7}
+/* completed route becomes a live data stream */
+.architecture-flow{stroke:var(--blue);stroke-width:3;stroke-linecap:round;stroke-dasharray:1 11;animation:arch-flow .8s linear infinite;transition:stroke .5s ease}
+@keyframes arch-flow{to{stroke-dashoffset:-24}}
+/* joints light up and stay lit as the signal passes */
+.architecture-joints circle{transform-box:fill-box;transform-origin:center;transition:fill .3s ease}
+.architecture-joints circle.is-lit{fill:var(--blue);animation:arch-pop .6s cubic-bezier(.2,.8,.2,1)}
+@keyframes arch-pop{40%{transform:scale(1.9)}100%{transform:scale(1)}}
+/* each card is "read" by a scan sweep when the signal enters it */
+.architecture-card-scan{opacity:0}
+.architecture-card-scan path{stroke:var(--blue);stroke-width:1.5}
+.architecture-section[data-active="1"] .architecture-requirements-card .architecture-card-scan,.architecture-section[data-active="2"] .architecture-blueprint-card .architecture-card-scan,.architecture-section[data-active="4"] .architecture-quality-card .architecture-card-scan,.architecture-section[data-active="5"] .architecture-production-card .architecture-card-scan{animation:arch-scan 1.3s cubic-bezier(.45,0,.2,1)}
+@keyframes arch-scan{0%{opacity:1;transform:translateY(0)}85%{opacity:1}100%{opacity:0;transform:translateY(126px)}}
+/* labels follow the active stage */
+.architecture-labels text{transition:fill .4s ease}
+.architecture-section[data-active="1"] .architecture-labels text:nth-child(1),.architecture-section[data-active="2"] .architecture-labels text:nth-child(2),.architecture-section[data-active="3"] .architecture-labels text:nth-child(5),.architecture-section[data-active="4"] .architecture-labels text:nth-child(3),.architecture-section[data-active="5"] .architecture-labels text:nth-child(4),.architecture-section[data-active="6"] .architecture-labels text:nth-child(4){fill:var(--blue)}
+/* finale: the whole path is shipped, it flashes cyan before the next cycle */
+.architecture-progress-line{transition:stroke .5s ease,opacity .5s ease}
+.architecture-section[data-complete] .architecture-flow,.architecture-section[data-complete] .architecture-progress-line{stroke:var(--cyan)}
+.architecture-section[data-complete] .architecture-progress-line{opacity:.9;filter:drop-shadow(0 0 6px color-mix(in srgb,var(--cyan) 70%,transparent))}
+.architecture-section[data-complete] .architecture-production-card .architecture-card-ping{animation:arch-ping 1.1s cubic-bezier(.2,.8,.2,1)}
+.architecture-section[data-complete] .architecture-production-card>rect{stroke:var(--blue);stroke-width:2;filter:drop-shadow(0 0 12px color-mix(in srgb,var(--blue) 35%,transparent))}
+@media(prefers-reduced-motion:reduce){
+ .arch-grid-lit,.architecture-flow{display:none}
+ .architecture-card-scan{animation:none!important}
+}
