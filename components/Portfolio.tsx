@@ -7,6 +7,7 @@ import Reveal from './Reveal';
 import Lightbox,{type LightboxItem} from './Lightbox';
 import {ProjectArt} from './ProjectArt';
 import SkillArtwork from './SkillArtwork';
+import AwardRank from './AwardRank';
 import ContactArtwork from './ContactArtwork';
 import CertificateArtwork from './CertificateArtwork';
 import AboutArtwork from './AboutArtwork';
@@ -88,7 +89,7 @@ export default function Portfolio(){
 
      <section id="recognition" className="recognition-section section-pad">
        <div className="wrap"><div className="section-overline" data-reveal><span className="section-index">04 / HIGHLIGHTS</span><span className="section-marker">MILESTONES THAT MATTER</span></div>
-       <div className="recognition-top" data-reveal><div><Text variant="overline" className="eyebrow-blue">A PROUD MOMENT</Text><Heading level={2} variant="section" className="section-title">The work<br/><em>speaks louder.</em></Heading></div><div className="award-number"><span>02<span className="award-suffix">nd</span></span><Text variant="caption">PLACE / HUAWEI AI HACKATHON 2026<br/>AGRITECH & ENVIRONMENTAL PROTECTION</Text></div></div>
+       <div className="recognition-top" data-reveal><div><Text variant="overline" className="eyebrow-blue">A PROUD MOMENT</Text><Heading level={2} variant="section" className="section-title">The work<br/><em>speaks louder.</em></Heading></div><div className="award-number"><AwardRank/><Text variant="caption">PLACE / HUAWEI AI HACKATHON 2026<br/>AGRITECH & ENVIRONMENTAL PROTECTION</Text></div></div>
        <div className="featured-award" data-reveal><Button variant="bare" className="featured-award-image image-button" onClick={()=>setLightbox({items:[{src:'/media/photos/huawei-stage.webp',title:'Huawei AI Hackathon 2026: Second place',subtitle:'Team ITC Randoms'}],index:0})} aria-label="View Huawei hackathon photo"><img src="/media/photos/huawei-stage.webp" alt="Team ITC Randoms receiving the Huawei second-place award" loading="lazy"/><span className="zoom-corner"><Plus size={22}/></span></Button><div className="featured-award-copy"><div className="featured-award-label"><Medal size={22}/> ACHIEVEMENT / 2026</div><Heading level={3} variant="feature">Second place.<br/><em>First-class memories.</em></Heading><Text variant="small" className="award-context-mobile">Huawei AI Hackathon 2026<br/>Agritech &amp; Environmental Protection</Text><Text>With team ITC Randoms, earned second place in the Agritech & Environmental Protection category at the Huawei AI Hackathon 2026.</Text><div className="award-foot"><span>HUAWEI AI HACKATHON</span><span>TEAM ITC RANDOMS</span></div></div></div>
        <div className="milestone-list">{milestones.map((m,i)=><div className="milestone" key={m.title} data-reveal><span className="milestone-n">0{i+1}</span><div><strong>{m.title}</strong><span>{m.subtitle}</span></div><span className="milestone-year">{m.year}</span><ArrowUpRight size={18}/></div>)}</div>
        </div>

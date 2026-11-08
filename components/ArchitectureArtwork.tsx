@@ -52,7 +52,10 @@ export default function ArchitectureArtwork(){
   const route=node.querySelector<SVGPathElement>('.architecture-route');
   const signals=Array.from(node.querySelectorAll<SVGPathElement>('.architecture-signal'));
   const progress=Array.from(node.querySelectorAll<SVGPathElement>('.architecture-progress'));
-  const spot=node.querySelector<SVGCircleElement>('.arch-spot');
+  const diagram=node.querySelector<HTMLDivElement>('.architecture-diagram');
+  const art=node.querySelector<SVGSVGElement>('.architecture-diagram>svg');
+  const spot=node.querySelector<HTMLDivElement>('.arch-spot');
+  const spotGrid=node.querySelector<HTMLDivElement>('.arch-spot-grid');
   const joints=Array.from(node.querySelectorAll<SVGCircleElement>('.architecture-joints circle'));
   const travelers=Array.from(node.querySelectorAll<SVGCircleElement>('.architecture-traveler'));
   if(!route||!signals.length||!travelers.length)return;
@@ -68,6 +71,36 @@ export default function ArchitectureArtwork(){
    return best;
   });
   let previous=0;
+  /* map SVG units to pixels so the GPU-composited spotlight lines up with the SVG grid */
+  const geo={s:0,ox:0,oy:0,r:0};
+  let last={x:90,y:214};
+  const place=(x:number,y:number)=>{
+   last={x,y};
+   if(!spot||!spotGrid||!geo.s)return;
+   const px=geo.ox+x*geo.s-geo.r,py=geo.oy+y*geo.s-geo.r;
+   spot.style.transform=`translate3d(${px}px,${py}px,0)`;
+   spotGrid.style.transform=`translate3d(${-px}px,${-py}px,0)`;
+  };
+  const measure=()=>{
+   if(!diagram||!art||!spot||!spotGrid)return;
+   const d=diagram.getBoundingClientRect(),b=art.getBoundingClientRect();
+   geo.s=Math.min(b.width/1200,b.height/430);
+   spot.style.display=geo.s?'':'none';
+   if(!geo.s)return;
+   geo.ox=b.left-d.left+(b.width-1200*geo.s)/2;
+   geo.oy=b.top-d.top+(b.height-430*geo.s)/2;
+   geo.r=150*geo.s;
+   const g=32*geo.s;
+   spot.style.width=spot.style.height=`${geo.r*2}px`;
+   spotGrid.style.width=`${d.width}px`;
+   spotGrid.style.height=`${d.height}px`;
+   spotGrid.style.backgroundSize=`${g}px ${g}px,${g}px ${g}px,${g}px ${g}px`;
+   spotGrid.style.backgroundPosition=`${geo.ox}px ${geo.oy}px,${geo.ox}px ${geo.oy}px,${geo.ox-g/2}px ${geo.oy-g/2}px`;
+   place(last.x,last.y);
+  };
+  measure();
+  const resize=new ResizeObserver(measure);
+  if(diagram)resize.observe(diagram);
   const position={distance:0};
   let lastStage=-1;
   const animations:gsap.core.Tween[]=[];
@@ -75,7 +108,7 @@ export default function ArchitectureArtwork(){
    animations.push(gsap.to(position,{distance:length,duration:9,ease:'none',repeat:-1,repeatDelay:1.4,delay:1.6,onUpdate:()=>{
     const point=route.getPointAtLength(position.distance);
     travelers.forEach(traveler=>{traveler.setAttribute('cx',String(point.x));traveler.setAttribute('cy',String(point.y));});
-    if(spot){spot.setAttribute('cx',String(point.x));spot.setAttribute('cy',String(point.y));}
+    place(point.x,point.y);
     if(position.distance<previous)delete node.dataset.complete;
     previous=position.distance;
     joints.forEach((joint,i)=>joint.classList.toggle('is-lit',position.distance>=jointAt[i]));
@@ -88,13 +121,12 @@ export default function ArchitectureArtwork(){
    animations.push(gsap.to('.architecture-core-ring',{rotation:360,transformOrigin:'50% 50%',duration:32,ease:'none',repeat:-1}));
    animations.push(gsap.to('.architecture-core-pulse',{scale:1.035,transformOrigin:'50% 50%',duration:2.1,ease:'sine.inOut',yoyo:true,repeat:-1}));
   },node);
-  const svg=node.querySelector<SVGSVGElement>('.architecture-diagram>svg');
   const observer=new IntersectionObserver(([entry])=>{
    animations.forEach(animation=>entry.isIntersecting?animation.play():animation.pause());
-   if(svg)entry.isIntersecting?svg.unpauseAnimations():svg.pauseAnimations();
+   if(art)entry.isIntersecting?art.unpauseAnimations():art.pauseAnimations();
   },{threshold:.12});
   observer.observe(node);
-  return()=>{observer.disconnect();context.revert();};
+  return()=>{observer.disconnect();resize.disconnect();context.revert();};
  },[]);
 
  return <section ref={root} className="architecture-section" data-active={active+1} aria-labelledby="architecture-heading">
@@ -104,21 +136,17 @@ export default function ArchitectureArtwork(){
     <div className="architecture-board-top"><span>FIG. 01 / THE ENGINEERING SYSTEM</span><span>IDEA → RUNNING PRODUCT</span></div>
     <div className="architecture-diagram">
      <div className="architecture-readout"><span className="architecture-readout-label">CURRENT OUTPUT <b>{stages[active].number} / 06</b></span><strong key={active}>{stages[active].output}</strong><span className="architecture-readout-track"><i style={{width:`${(active+1)/stages.length*100}%`}}/></span></div>
+     <div className="arch-spot" aria-hidden="true"><div className="arch-spot-grid"/></div>
      <svg viewBox="0 0 1200 430" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
       <defs>
        <pattern id="architecture-grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="currentColor" strokeOpacity=".08" strokeWidth="1"/></pattern>
        <radialGradient id="arch-grid-fade" cx="50%" cy="50%" r="60%"><stop offset="0" stopColor="#fff"/><stop offset=".75" stopColor="#fff" stopOpacity=".55"/><stop offset="1" stopColor="#fff" stopOpacity="0"/></radialGradient>
        <mask id="arch-grid-mask"><rect width="1200" height="430" fill="url(#arch-grid-fade)"/></mask>
-       <radialGradient id="arch-core-halo"><stop offset="0" className="arch-stop-a" stopOpacity=".16"/><stop offset=".5" className="arch-stop-a" stopOpacity=".05"/><stop offset="1" className="arch-stop-a" stopOpacity="0"/></radialGradient>
-       <pattern id="arch-grid-lit" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" className="arch-grid-lit-line" strokeWidth="1"/><circle cx="0" cy="0" r="1.6" className="arch-grid-lit-dot"/></pattern>
-       <radialGradient id="arch-spot-grad"><stop offset="0" stopColor="#fff"/><stop offset="1" stopColor="#fff" stopOpacity="0"/></radialGradient>
-       <mask id="arch-spot-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1200" height="430"><circle className="arch-spot" cx="90" cy="214" r="130" fill="url(#arch-spot-grad)"/></mask>
-       <mask id="arch-progress-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1200" height="430"><path className="architecture-progress" d={ROUTE} fill="none" stroke="#fff" strokeWidth="10" strokeDasharray="0 99999"/></mask>
+       <mask id="arch-progress-mask" maskUnits="userSpaceOnUse" x="78" y="76" width="1044" height="276"><path className="architecture-progress" d={ROUTE} fill="none" stroke="#fff" strokeWidth="10" strokeDasharray="0 99999"/></mask>
        <linearGradient id="arch-scan-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" className="arch-stop-a" stopOpacity="0"/><stop offset="1" className="arch-stop-a" stopOpacity=".22"/></linearGradient>
        {CARDS.map(c=><clipPath key={c.id} id={`arch-clip-${c.id}`}><rect x={c.x} y={c.y} width={c.w} height={c.h}/></clipPath>)}
       </defs>
       <rect width="1200" height="430" fill="url(#architecture-grid)" mask="url(#arch-grid-mask)"/>
-      <rect className="arch-grid-lit" width="1200" height="430" fill="url(#arch-grid-lit)" mask="url(#arch-spot-mask)"/>
 
       <path className="architecture-route" d={ROUTE} fill="none" stroke="var(--blue)" strokeWidth="2" strokeOpacity=".42" strokeLinecap="round"/>
       <path className="architecture-progress architecture-progress-line" d={ROUTE} fill="none" strokeLinecap="round" strokeDasharray="0 99999"/>
@@ -136,7 +164,6 @@ export default function ArchitectureArtwork(){
 
       {/* the core */}
       <g className="arch-core">
-       <circle className="arch-core-halo" cx="600" cy="214" r="150" fill="url(#arch-core-halo)"/>
        <g className="architecture-core-ring" fill="none" stroke="var(--blue)" strokeWidth="1.5"><circle cx="600" cy="214" r="101" strokeDasharray="8 10"/><path d="M600 100v24m0 180v24M486 214h24m180 0h24"/></g>
        <circle className="arch-core-ping" cx="600" cy="214" r="76"/>
        <circle className="architecture-core-pulse" cx="600" cy="214" r="76" fill="var(--architecture-core)" stroke="var(--blue)" strokeWidth="2"/>

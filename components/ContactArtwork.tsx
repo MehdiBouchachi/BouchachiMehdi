@@ -20,7 +20,7 @@ export default function ContactArtwork(){
    <g className="contact-art-core" transform="translate(600 95)">
     <circle className="contact-art-orbit" r="63"/><circle className="contact-art-orbit" r="52"/>
     <rect x="-34" y="-34" width="68" height="68" rx="2"/>
-    <path d="M-20-8h40M-20 0h24M-20 8h40"/>
+    <path className="contact-art-core-line" d="M-20-8h40"/><path className="contact-art-core-line" d="M-20 0h24"/><path className="contact-art-core-line" d="M-20 8h40"/>
     <circle className="contact-art-core-dot" cx="18" cy="0" r="3"/>
    </g>
    <g className="contact-art-pulses" fill="white"><circle r="4"/><circle r="4"/><circle r="4"/><circle r="4"/></g>
